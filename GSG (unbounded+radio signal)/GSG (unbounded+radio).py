@@ -6,7 +6,10 @@ from adversery import adv
 from drone import drone
 import g_var
 
-from Tkinter import *
+try:
+    from Tkinter import *
+except:
+    from tkinter import *
 import random
 import gc
 import math
@@ -33,14 +36,14 @@ class app(Frame):
 
         self.refresh_counter += 1
         if self.refresh_counter <= g_var.movement_limit:
-            #print "working in main refresh " + random.randint(1,50).__str__()
+            #print("working in main refresh " + random.randint(1,50).__str__())
             self.root.after(g_var.turn_gap_time, self.refresh)
         elif self.refresh_counter > g_var.movement_limit:
-            '''print "Caught poachers: " + str(g_var.arrested_poachers), \
+            '''print("Caught poachers: " + str(g_var.arrested_poachers), \
             ", Fled poachers: " + str(g_var.fled_poachers), \
             ", Resource poached: " + str(g_var.resource_poached), \
             ", Resource recovered: " + str(g_var.resource_recovered), \
-            ", Distance travelled by agents: " + str(g_var.distance_travelled) + "\n"'''
+            ", Distance travelled by agents: " + str(g_var.distance_travelled) + "\n")'''
             for index in range(len(self.object_list)):
                 object_popped = self.object_list.pop()
                 del object_popped
@@ -64,9 +67,9 @@ class app(Frame):
         self.refresh_counter = 0
         g_var.movement_limit = 40
 
-        '''print "Parameters: adversaries: " + str(g_var.num_of_adverseries),\
+        '''print("Parameters: adversaries: " + str(g_var.num_of_adverseries),\
         ", agents: " + str(g_var.num_of_agents),\
-        ", drones: " + str(g_var.num_of_drones)'''
+        ", drones: " + str(g_var.num_of_drones))'''
 
         self.root = Tk()
 
@@ -156,12 +159,12 @@ class app(Frame):
 
         self.root.mainloop()
 
-print "\n***Simulating Green Security Game (Unbounded guarding + Radio signalling)***\n"
+print("\n***Simulating Green Security Game (Unbounded guarding + Radio signalling)***\n")
 
 num_of_trials = 1
 num_of_values = 5
 
-print "***Number of Trials = " + num_of_trials.__str__() + "***"
+print("***Number of Trials = " + num_of_trials.__str__() + "***")
 
 with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//unbounded+radio.csv', 'w') as csvfile:
     title = ['unbounded + radio']
@@ -205,13 +208,13 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//u
                 sum += math.pow(value_list[j][k] - avg_list[j], 2)
             std_list[j] = math.sqrt(sum/num_of_trials)
 
-        print "\n******************** The average for trial " + str(g_var.num_of_adverseries) + "," + str(g_var.num_of_agents) + "," + str(g_var.num_of_drones) + " is: ********************\n"
+        print("\n******************** The average for trial " + str(g_var.num_of_adverseries) + "," + str(g_var.num_of_agents) + "," + str(g_var.num_of_drones) + " is: ********************\n")
 
-        print "Caught poachers: " + format(avg_list[0],'.3f') + " (±" + format(std_list[0],'.3f') + ") " \
+        print("Caught poachers: " + format(avg_list[0],'.3f') + " (±" + format(std_list[0],'.3f') + ") " \
                 ", Fled poachers: " + format(avg_list[1],'.3f') + " (±" + format(std_list[1],'.3f') + ") " \
                 ", Resource poached: " + format(avg_list[2],'.3f') + " (±" + format(std_list[2],'.3f') + ") " \
                 ", Resource recovered: " + format(avg_list[3],'.3f') + " (±" + format(std_list[3],'.3f') + ") " \
-                ", Distance travelled by agents: " + format(avg_list[4],'.3f') + " (±" + format(std_list[4],'.2f') + ") "
+                ", Distance travelled by agents: " + format(avg_list[4],'.3f') + " (±" + format(std_list[4],'.2f') + ") ")
 
         formation = '(' + str(adv_in) + ',' + str(guard_in) + ',' + str(drone_in) + ')'
         writer.writerow({'Formation': formation ,'Caught poachers':'{:.2%}'.format(avg_list[0]/10),'Fled poachers':'{:.2%}'.format(avg_list[1]/10),'Resource poached':avg_list[2],'Resource recovered':avg_list[3],'Distance travelled':avg_list[4]})
