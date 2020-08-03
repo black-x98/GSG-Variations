@@ -1,0 +1,6 @@
+unbounded + sound
+Formation,Caught poachers,Fled poachers,Resource poached,Resource recovered,Distance travelled
+"['(10,6,1)']",40.00%,60.00%,59.0,13.5,263.0
+"['(10,6,2)']",25.00%,75.00%,68.5,7.5,261.5
+"['(10,6,3)']",60.00%,40.00%,40.0,15.0,255.5
+"['(10,6,4)']",80.00%,20.00%,20.0,18.5,260.0
