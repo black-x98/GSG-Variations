@@ -164,11 +164,6 @@ class adv(entities):
         self.flag = 5
         #print "The poacher JUST ESCAPED!!!***************"
 
-    def daray_thako(self):
-        yyy = 0
-        yyy += 1
-        yyy -= 1
-
     def operate_adv(self):
         self.adv_move_counter += 1
         if self.flag == 0:

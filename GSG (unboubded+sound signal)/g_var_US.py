@@ -1,7 +1,7 @@
 
 dimension = 10
 
-exchange_rate = 7
+exchange_rate = 3
 
 bg_color = "#00000F"
 block_size= 40

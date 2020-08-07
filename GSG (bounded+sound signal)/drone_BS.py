@@ -20,10 +20,6 @@ class drone(entities):
         self.cur_y_drone = random.randint(round(g_var_BS.dimension * self.sub_mult_y[0]), round(g_var_BS.dimension * self.sub_mult_y[1]) - 1)
         self.cur_x_drone = random.randint(round(g_var_BS.dimension * self.sub_mult_x[0]), round(g_var_BS.dimension * self.sub_mult_x[1]) - 1)
 
-        #unbounded drone placement:
-        '''self.cur_x_drone = random.randint(0,g_var.dimension-2)
-        self.cur_y_drone = random.randint(0,g_var.dimension-2)'''
-
         x_cor = self.cur_x_drone * g_var_BS.block_size
         y_cor = self.cur_y_drone * g_var_BS.block_size
         self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 1
@@ -66,6 +62,7 @@ class drone(entities):
         self.canvas.create_oval(x_cor + 22, y_cor + 10, x_cor + 37, y_cor + 25, fill=self.drone_color, outline=g_var_BS.bg_color)
         #if self.adv_pos[self.cur_y_drone][self.cur_x_drone] == 1:
         #if random.randint(0,1) == 1:
+
         if self.adv_pos[self.cur_y_drone][self.cur_x_drone] == 1:
             self.drone_signal[self.cur_y_drone][self.cur_x_drone] = 1
             '''print "placed drone signal at (",

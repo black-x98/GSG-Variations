@@ -6,7 +6,7 @@ class adv(entities):
 
     adv_move_counter = 0
 
-    def __init__(self,_canvas,_root, _agent_pos, _drone_pos, _cell_resources, _target_pos, _adv_pos):
+    def __init__(self,_canvas,_root, _agent_pos, _drone_pos, _cell_resources, _adv_pos):
 
         self.adv_color="red"
         self.canvas = _canvas
@@ -15,8 +15,13 @@ class adv(entities):
         self.drone_pos = _drone_pos
         self.cell_resources = _cell_resources
         self.adv_pos = _adv_pos
-        self.target_pos = _target_pos
-        self.my_target = _target_pos[random.randint(0,len(_target_pos)-1)]
+        self.my_target = [None] * 2
+        #self.my_target = _target_pos[random.randint(0,len(_target_pos)-1)]
+        while(True):
+            self.my_target[0] = random.randint(0,g_var_UR.dimension-1)
+            self.my_target[1] = random.randint(0,g_var_UR.dimension-1)
+            if self.cell_resources[self.my_target[0]][self.my_target[1]] > 0:
+                break
         ##print "my target : " + str(self.my_target)
         self.flag = 0
         self.escape_x = 0
@@ -81,8 +86,13 @@ class adv(entities):
             self.cell_resources[self.cur_y_adv][self.cur_x_adv] -= 1
         if self.cell_resources[self.cur_y_adv][self.cur_x_adv] <= 0:
             ##print "This cell has been sucked empty!!!"
-            self.my_target = self.target_pos[random.randint(0,len(self.target_pos)-1)] # setting new target
+            while(True): # setting new target
+                self.my_target[0] = random.randint(0,g_var_UR.dimension-1)
+                self.my_target[1] = random.randint(0,g_var_UR.dimension-1)
+                if self.cell_resources[self.my_target[0]][self.my_target[1]] > 0:
+                    break
             self.flag = 0
+
         if self.sack >= self.sack_limit:
             self.flag = 2
 
@@ -182,7 +192,7 @@ class adv(entities):
             g_var_UR.fled_poachers += 1
             del self
 
-        elif self.agent_pos[self.cur_x_adv][self.cur_y_adv] == 1: # The End sir!!!
+        elif self.agent_pos[self.cur_y_adv][self.cur_x_adv] == 1: # The End sir!!!
             self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 0
             x_cor = self.cur_x_adv * g_var_UR.block_size
             y_cor = self.cur_y_adv * g_var_UR.block_size

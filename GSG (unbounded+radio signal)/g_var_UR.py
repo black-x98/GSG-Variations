@@ -1,10 +1,13 @@
 
 dimension = 10
 
+exchange_rate = 3
+
 bg_color = "#00000F"
 block_size= 40
 movement_limit = 50
-turn_gap_time = 20
+turn_gap_time = 0
+move_skip_toggle = 2
 
 arrested_poachers = 0
 fled_poachers = 0

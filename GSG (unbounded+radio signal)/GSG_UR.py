@@ -84,8 +84,7 @@ class app(Frame):
         self.adv_pos = [[0 for i in range(g_var_UR.dimension)] for j in range(g_var_UR.dimension)]
         self.drone_pos = [[0 for i in range(g_var_UR.dimension)] for j in range(g_var_UR.dimension)]
         self.drone_signal = [[0 for i in range(g_var_UR.dimension)] for j in range(g_var_UR.dimension)]
-        self.target_pos = []
-        self.round_marking = []
+        
         self.object_list = []
         self.cell_resources =  [[4,9,6,7,0,2,1,6,7,0],
                                [13,50,0,0,50,0,50,0,0,21],
@@ -98,13 +97,6 @@ class app(Frame):
                                [7,0,0,50,0,0,0,50,13,23],
                                [11,12,31,10,9,8,11,13,14,21]]
 
-        for i in range(g_var_UR.dimension):
-            for j in range(g_var_UR.dimension):
-                if self.cell_resources[i][j] > 0:
-                    self.target_pos.append((i,j))
-                if self.cell_resources[i][j] == -1:
-                    self.round_marking.append((i,j))
-        self.round_marking.append((5,5)) # temporary dummy
 
         self.cell_coord = [[i.__str__() + "," + j.__str__() for i in range(g_var_UR.dimension)] for j in range(g_var_UR.dimension)]
 
@@ -143,7 +135,7 @@ class app(Frame):
                 self.canvas.create_rectangle(i * g_var_UR.block_size, j * g_var_UR.block_size, g_var_UR.block_size, g_var_UR.block_size, outline="grey")
 
         for i in range(g_var_UR.num_of_agents):
-            agent_obj = agent(self.canvas,self.root,self.agent_pos,self.cell_resources,self.target_pos,self.round_marking,self.drone_signal)
+            agent_obj = agent(self.canvas,self.root,self.agent_pos,self.cell_resources,self.drone_signal)
             agent_obj.move_spec_guard()
             self.object_list.append(agent_obj)
 
@@ -153,7 +145,7 @@ class app(Frame):
             self.object_list.append(drone_obj)
 
         for i in range(g_var_UR.num_of_adverseries):
-            adv_obj = adv(self.canvas,self.root,self.agent_pos,self.drone_pos,self.cell_resources,self.target_pos,self.adv_pos)
+            adv_obj = adv(self.canvas,self.root,self.agent_pos,self.drone_pos,self.cell_resources,self.adv_pos)
             adv_obj.operate_adv()
             self.object_list.append(adv_obj)
 
@@ -185,8 +177,9 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//U
             gc.collect()
             adv_in = 10
             guard_in = i
-            drone_in = 8
+            drone_in = 8 #i*g_var_UR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
+            #app(10,i,(8-i)*g_var_UR.exchange_rate) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_UR.arrested_poachers
             avg_list[0] += value_list[0][j]

@@ -194,7 +194,7 @@ class app(Frame):
 
 print("\n***Simulating Green Security Game (Bounded guarding + Radio signalling)***\n")
 
-num_of_trials = 2
+num_of_trials = 10
 num_of_values = 5
 
 print("***Number of Trials: " + num_of_trials.__str__() + "***")
@@ -208,7 +208,7 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)#, extrasaction='ignore')
     writer.writeheader()
 
-    for i in range(1,5):
+    for i in range(1,9):
         #
         avg_list = [0.0 for ind in range(num_of_values)]
         std_list = [0.0 for ind in range(num_of_values)]
@@ -218,8 +218,8 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
         for j in range(num_of_trials):
             gc.collect()
             adv_in = 10
-            guard_in = 6
-            drone_in = i
+            guard_in = 4
+            drone_in = i*g_var_BR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BR.arrested_poachers

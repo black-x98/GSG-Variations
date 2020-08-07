@@ -155,12 +155,12 @@ class app(Frame):
 
 print("\n***Simulating Green Security Game (Unbounded guarding + Sound signalling)***\n")
 
-num_of_trials = 2
+num_of_trials = 10
 num_of_values = 5
 
 print("***Number of Trials: " + num_of_trials.__str__() + "***")
 
-with open('/results/US.csv', 'w') as csvfile:
+with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//US.csv', 'w') as csvfile:
     title = ['unbounded + sound']
     writer_title = csv.DictWriter(csvfile, fieldnames=title)#, extrasaction='ignore')
     writer_title.writeheader()
@@ -168,7 +168,7 @@ with open('/results/US.csv', 'w') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)#, extrasaction='ignore')
     writer.writeheader()
 
-    for i in range(1,5):
+    for i in range(1,9):
         #
         avg_list = [0.0 for ind in range(num_of_values)]
         std_list = [0.0 for ind in range(num_of_values)]
@@ -179,9 +179,10 @@ with open('/results/US.csv', 'w') as csvfile:
         for j in range(num_of_trials):
             gc.collect()
             adv_in = 10
-            guard_in = 6
-            drone_in = i
+            guard_in = 4
+            drone_in = i*g_var_US.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
+            #app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
             value_list[0][j] += g_var_US.arrested_poachers
             avg_list[0] += value_list[0][j]
             value_list[1][j] += g_var_US.fled_poachers

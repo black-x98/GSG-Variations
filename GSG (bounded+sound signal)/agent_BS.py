@@ -41,7 +41,7 @@ class agent(entities):
         # checking drone signal
         for i in range(3):
             for j in range(3):
-                if i==1 and j==1:
+                if i==1 and j==1: # this is his own position
                     continue
                 temp_y = self.cur_y_agent-1+i
                 temp_x = self.cur_x_agent-1+j
@@ -50,23 +50,35 @@ class agent(entities):
                         self.my_target = (temp_y,temp_x)
                         self.active_target = True
                         #print "AGENT DETECTED A DRONE SIGNAL!!!"
-                        ##print "Agent heading to " + str(self.my_target) + " from " + str(self.cur_y_agent) + "," + str(self.cur_x_agent)
+                        #print "Agent heading to " + str(self.my_target) + " from " + str(self.cur_y_agent) + "," + str(self.cur_x_agent)
                         break
 
         if self.active_target==True:
-            #erasing previous position
             #print "going to drone signalled place <- " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " ->"
             x_cor = self.cur_x_agent * g_var_BS.block_size
             y_cor = self.cur_y_agent * g_var_BS.block_size
             self.canvas.create_polygon(x_cor + 15, y_cor + 20, x_cor + 15, y_cor + 35, x_cor + 30, y_cor + 35, x_cor + 30, y_cor + 20, fill=g_var_BS.bg_color, outline=g_var_BS.bg_color)
             self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 0
 
-            self.cur_x_agent = self.my_target[1]
-            self.cur_y_agent = self.my_target[0]
-            x_cor = self.cur_x_agent * g_var_BS.block_size
-            y_cor = self.cur_y_agent * g_var_BS.block_size
+            x_offset = self.my_target[1] - self.cur_x_agent
+            y_offset = self.my_target[0] - self.cur_y_agent
+
+            if x_offset == 0 and y_offset == 0:
+                #print "Reached the Radio signalled spot, setting active target FALSE" + str(self.my_target)
+                self.active_target=False
+
+            move_x, move_y = 0,0
+            if x_offset>0 and self.cur_x_agent<g_var_BS.dimension-1: move_x = +1
+            elif x_offset<0 and self.cur_x_agent>0 : move_x=-1
+            if y_offset>0 and self.cur_y_agent<g_var_BS.dimension-1: move_y = +1
+            elif y_offset<0 and self.cur_y_agent>0 : move_y=-1
+
+            self.cur_x_agent += move_x
+            self.cur_y_agent += move_y
 
             #print "drawing agent at " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " "
+            x_cor = self.cur_x_agent * g_var_BS.block_size
+            y_cor = self.cur_y_agent * g_var_BS.block_size
             self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
             self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 3
 

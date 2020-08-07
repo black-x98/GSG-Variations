@@ -50,8 +50,6 @@ class agent(entities):
                         ##print "Agent heading to " + str(self.my_target) + " from " + str(self.cur_y_agent) + "," + str(self.cur_x_agent)
                         break
         #print self.move_skip, self.drone_signal_flag
-        normal_move_x = 0
-        normal_move_y = 0
 
         if self.drone_signal_flag==True:
             #print "inside DRONE SIG MODE"

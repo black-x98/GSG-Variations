@@ -18,14 +18,14 @@ class drone(entities):
 
         x_cor = self.cur_x_drone * g_var_UR.block_size
         y_cor = self.cur_y_drone * g_var_UR.block_size
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 1
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 1
         self.canvas.create_oval(x_cor + 22, y_cor + 10, x_cor + 37, y_cor + 25, fill=self.drone_color, outline=g_var_UR.bg_color)
 
     def move_drone(self):
 
         x_cor = self.cur_x_drone * g_var_UR.block_size
         y_cor = self.cur_y_drone * g_var_UR.block_size
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 0
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 0
         self.canvas.create_oval(x_cor + 22, y_cor + 10, x_cor + 37, y_cor + 25, fill=g_var_UR.bg_color, outline=g_var_UR.bg_color)
         self.drone_signal[self.cur_y_drone][self.cur_x_drone] = 0 # erasing the signal, if any that is!!!
 
@@ -48,10 +48,11 @@ class drone(entities):
 
         x_cor = self.cur_x_drone * g_var_UR.block_size
         y_cor = self.cur_y_drone * g_var_UR.block_size
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 1 # Marking Drone Position
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 1 # Marking Drone Position
         self.canvas.create_oval(x_cor + 22, y_cor + 10, x_cor + 37, y_cor + 25, fill=self.drone_color, outline=g_var_UR.bg_color)
         if self.adv_pos[self.cur_y_drone][self.cur_x_drone] == 1:
             self.drone_signal[self.cur_y_drone][self.cur_x_drone] = 1
+        #self.drone_signal[self.cur_y_drone][self.cur_x_drone] = 1
             #print "Drone sending signal!!! BEEP BEEP BEEP!! at " + self.cur_y_drone.__str__() + "," + self.cur_x_drone.__str__()
 
         self.drone_counter += 1
