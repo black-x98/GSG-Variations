@@ -179,8 +179,8 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//U
         for j in range(num_of_trials):
             gc.collect()
             adv_in = 10
-            guard_in = 4
-            drone_in = i*g_var_US.exchange_rate
+            guard_in = i
+            drone_in = (8-i)*g_var_US.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
             #app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
             value_list[0][j] += g_var_US.arrested_poachers

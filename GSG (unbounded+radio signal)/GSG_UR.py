@@ -20,7 +20,6 @@ class app(Frame):
 
     global arrested_poachers, resource_poached, resource_recovered, distance_travelled, turn_gap_time
 
-
     def refresh(self):
 
         self.label_arrest['text'] = "CAUGHT Poachers:\n" + str(g_var_UR.arrested_poachers)

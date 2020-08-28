@@ -216,7 +216,7 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
             gc.collect()
             adv_in = 10
             guard_in = i
-            drone_in = (8-i)*g_var_BS.exchange_rate
+            drone_in = 8#(8-i)*g_var_BS.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BS.arrested_poachers

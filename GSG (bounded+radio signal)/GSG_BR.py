@@ -199,8 +199,8 @@ num_of_values = 5
 
 print("***Number of Trials: " + num_of_trials.__str__() + "***")
 
+#with open('E://MS Thesis Implementation Final GitHub//GSG-Variations//results//BR.csv', 'w') as csvfile:
 with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//BR.csv', 'w') as csvfile:
-#with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//BR.csv', 'w') as csvfile:
     title = ['bounded + radio']
     writer_title = csv.DictWriter(csvfile, fieldnames=title)#, extrasaction='ignore')
     writer_title.writeheader()
@@ -218,8 +218,8 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
         for j in range(num_of_trials):
             gc.collect()
             adv_in = 10
-            guard_in = 4
-            drone_in = i*g_var_BR.exchange_rate
+            guard_in = i
+            drone_in = (8-i)*g_var_BR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BR.arrested_poachers

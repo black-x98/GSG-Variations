@@ -61,8 +61,8 @@ class adv(entities):
         self.cur_y_adv += move_y
 
         if self.cur_x_adv>g_var_BR.dimension-1 or self.cur_y_adv>g_var_BR.dimension-1: # invalid move check!!!
-            print "INVALID!!!!! MUST NOT REACH THIS!!!!!"
-            print "The invalid cur_x_adv and cur_y_adv is: " + self.cur_x_adv.__str__() + " and " + self.cur_y_adv.__str__()
+            print("INVALID!!!!! MUST NOT REACH THIS!!!!!")
+            print("The invalid cur_x_adv and cur_y_adv is: " + self.cur_x_adv.__str__() + " and " + self.cur_y_adv.__str__())
 
         x_cor = self.cur_x_adv * g_var_BR.block_size
         y_cor = self.cur_y_adv * g_var_BR.block_size
@@ -152,8 +152,8 @@ class adv(entities):
         self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 1
 
         if self.cur_x_adv>g_var_BR.dimension-1 or self.cur_y_adv>g_var_BR.dimension-1: # invalid move check!!!
-            print "INVALID!!!!! MUST NOT REACH THIS!!!!!"
-            print "The invalid cur_x_adv and cur_y_adv is: " + self.cur_x_adv.__str__() + " and " + self.cur_y_adv.__str__()
+            print("INVALID!!!!! MUST NOT REACH THIS!!!!!")
+            print("The invalid cur_x_adv and cur_y_adv is: " + self.cur_x_adv.__str__() + " and " + self.cur_y_adv.__str__())
 
 
     def escape(self):
@@ -190,7 +190,7 @@ class adv(entities):
             self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 0
             x_cor = self.cur_x_adv * g_var_BR.block_size
             y_cor = self.cur_y_adv * g_var_BR.block_size
-            self.canvas.create_polygon(x_cor+15,y_cor+10,x_cor+15,y_cor+25,x_cor+30,y_cor+25,x_cor+30,y_cor+10,fill="white")
+            #self.canvas.create_polygon(x_cor+15,y_cor+10,x_cor+15,y_cor+25,x_cor+30,y_cor+25,x_cor+30,y_cor+10,fill="white")
             #actually j correspond to x and i correspoond to y
             #print "Poacher caught at the position: **" + self.cur_y_adv.__str__() + "," + self.cur_x_adv.__str__() + "**"
             self.canvas.create_polygon(x_cor + 15, y_cor + 38, x_cor + 35, y_cor + 38, x_cor + 25, y_cor + 19, fill=g_var_BR.bg_color, outline=g_var_BR.bg_color)

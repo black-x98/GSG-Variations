@@ -126,6 +126,10 @@ class agent(entities):
             self.agent_counter += 1
             if move_x != 0 or move_y != 0:
                 g_var_BS.distance_travelled += 1
+        else:
+            x_cor = self.cur_x_agent * g_var_BS.block_size
+            y_cor = self.cur_y_agent * g_var_BS.block_size
+            self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
 
         if self.agent_counter < g_var_BS.movement_limit:
             self.root.after(g_var_BS.turn_gap_time, self.move_agent)

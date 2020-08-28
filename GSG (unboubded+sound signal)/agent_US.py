@@ -120,6 +120,11 @@ class agent(entities):
                 g_var_US.distance_travelled += 1
                 #print " inceasing distance normal toggle mode"
 
+        else:
+            x_cor = self.cur_x_agent * g_var_US.block_size
+            y_cor = self.cur_y_agent * g_var_US.block_size
+            self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
+
         self.agent_counter += 1
         if self.agent_counter < g_var_US.movement_limit:
             self.root.after(g_var_US.turn_gap_time, self.move_spec_guard)

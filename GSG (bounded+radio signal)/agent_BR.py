@@ -5,7 +5,7 @@ import g_var_BR
 class agent(entities):
 
 
-    agent_color = "green"
+    agent_color = "#00FF00"#"green"
 
     def __init__(self,_canvas,_root,_agent_pos,_cell_resources,_target_pos,_round_marking,_drone_signal,_subarea_y,_subarea_x,_sub_y,_sub_x, _adv_pos, _subarea_signal):
         self.canvas = _canvas
@@ -120,6 +120,10 @@ class agent(entities):
             self.agent_counter += 1
             if move_x != 0 or move_y != 0:
                 g_var_BR.distance_travelled += 1
+        else:
+            x_cor = self.cur_x_agent * g_var_BR.block_size
+            y_cor = self.cur_y_agent * g_var_BR.block_size
+            self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
 
         if self.agent_counter < g_var_BR.movement_limit:
             self.root.after(g_var_BR.turn_gap_time, self.move_agent)
