@@ -192,7 +192,7 @@ class adv(entities):
             y_cor = self.cur_y_adv * g_var_BR.block_size
             #self.canvas.create_polygon(x_cor+15,y_cor+10,x_cor+15,y_cor+25,x_cor+30,y_cor+25,x_cor+30,y_cor+10,fill="white")
             #actually j correspond to x and i correspoond to y
-            #print "Poacher caught at the position: **" + self.cur_y_adv.__str__() + "," + self.cur_x_adv.__str__() + "**"
+            #print "Poacher CAUGHT at the position: **" + self.cur_y_adv.__str__() + "," + self.cur_x_adv.__str__() + "**"
             self.canvas.create_polygon(x_cor + 15, y_cor + 38, x_cor + 35, y_cor + 38, x_cor + 25, y_cor + 19, fill=g_var_BR.bg_color, outline=g_var_BR.bg_color)
             global arrested_poachers, resource_recovered
             g_var_BR.arrested_poachers += 1

@@ -108,8 +108,6 @@ class app(Frame):
             for j in range(g_var_BR.dimension):
                 if self.cell_resources[i][j] > 0:
                     self.target_pos.append((i,j))
-                if self.cell_resources[i][j] == -1:
-                    self.round_marking.append((i,j))
         self.round_marking.append((5,5)) # temporary dummy
 
         self.cell_coord = [[i.__str__() + "," + j.__str__() for i in range(g_var_BR.dimension)] for j in range(g_var_BR.dimension)]
@@ -171,7 +169,6 @@ class app(Frame):
                     drone_obj.move_drone()
                     self.object_list.append(drone_obj)
                     self.drone_employed += 1
-                    print(drone_jjj)
 
             if(self.extra_drone_emp<self.extra_drone_num):
                 self.subarea_check_drone[sub_y][sub_x] += 1
@@ -220,7 +217,7 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
             gc.collect()
             adv_in = 10
             guard_in = 4
-            drone_in = 9#i*g_var_BR.exchange_rate
+            drone_in = 21#i*g_var_BR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BR.arrested_poachers
