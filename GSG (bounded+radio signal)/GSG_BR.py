@@ -46,9 +46,8 @@ class app(Frame):
             ", Distance travelled by agents: " + str(g_var.distance_travelled) + "\n"'''
             for index in range(len(self.object_list)):
                 object_popped = self.object_list.pop()
-                #print(" deleting popped object" + index.__str__() ,
                 del object_popped
-            #print("\n"
+
             self.root.destroy() # Destroys the Tkinter window for this execution
 
 
@@ -148,25 +147,15 @@ class app(Frame):
 
         #num_agent_or_drone = max(g_var.num_of_agents,g_var.num_of_drones) #tradeoff er khetre projojjo na
 
-        '''numerator = ((8-g_var.num_of_agents)*g_var.exchange_rate)
-        drone_float_subarea = 1.0 * numerator/g_var.num_of_agents
-        if drone_float_subarea>1: extra_drone_num = (drone_float_subarea - int(drone_float_subarea))*g_var.num_of_agents
-        else: extra_drone_num = 0
-        print("extra drone num: " + extra_drone_num.__str__()
-        drone_range_subarea =  numerator/g_var.num_of_agents
-        if numerator < g_var.num_of_agents and numerator!=0:
-            drone_range_subarea = 1'''
-
-        self.extra_drone_count = 0
-        self.max_drone_subarea = int(math.ceil(1.00 * g_var_BR.num_of_drones / g_var_BR.num_of_agents))
+        self.extra_drone_emp = 0
+        self.min_drone_subarea = int(math.floor(1.00 * g_var_BR.num_of_drones / g_var_BR.num_of_agents))
+        self.extra_drone_num = g_var_BR.num_of_drones - g_var_BR.num_of_agents * self.min_drone_subarea
         for i in range(g_var_BR.num_of_agents):
             sub_y = random.randint(0,2)
             sub_x = random.randint(0,2)
             while self.subarea_check_agent[sub_y][sub_x] >= 1:
                 sub_y = random.randint(0,2)
                 sub_x = random.randint(0,2)
-            #sub_y = 1
-            #sub_x = 1
 
             if i<g_var_BR.num_of_agents:
                 self.subarea_check_agent[sub_y][sub_x] += 1
@@ -175,13 +164,26 @@ class app(Frame):
                 self.object_list.append(agent_obj)
 
                 #print("At a single subara, drone number: " + drone_range_subarea.__str__()
-            for drone_jjj in range(self.max_drone_subarea):
+            for drone_jjj in range(self.min_drone_subarea):
                 if self.drone_employed < g_var_BR.num_of_drones:
                     self.subarea_check_drone[sub_y][sub_x] += 1
                     drone_obj = drone(self.canvas,self.root,self.drone_pos,self.drone_signal,self.adv_pos,self.subarea_y,self.subarea_x,sub_y,sub_x,self.subarea_signal)
                     drone_obj.move_drone()
                     self.object_list.append(drone_obj)
                     self.drone_employed += 1
+                    print(drone_jjj)
+
+            if(self.extra_drone_emp<self.extra_drone_num):
+                self.subarea_check_drone[sub_y][sub_x] += 1
+                drone_obj = drone(self.canvas,self.root,self.drone_pos,self.drone_signal,self.adv_pos,self.subarea_y,self.subarea_x,sub_y,sub_x,self.subarea_signal)
+                drone_obj.move_drone()
+                self.object_list.append(drone_obj)
+                self.drone_employed += 1
+                self.extra_drone_emp += 1
+                self.subarea_check_drone[sub_y][sub_x] += 1
+
+
+
             #print(self.drone_employed
         #print("^ And that, my friend is the number of drones that were employed "
         for i in range(g_var_BR.num_of_adverseries):
@@ -192,7 +194,7 @@ class app(Frame):
         self.root.mainloop()
 
 
-print("\n***Simulating Green Security Game (Bounded guarding + Radio signalling)***\n")
+print("\n***Simulating Green Security Game (Bounded guarding + Radio signalling)***, Move Skip = " + str(g_var_BR.move_skip_toggle-1) + "\n")
 
 num_of_trials = 10
 num_of_values = 5
@@ -201,25 +203,24 @@ print("***Number of Trials: " + num_of_trials.__str__() + "***")
 
 #with open('E://MS Thesis Implementation Final GitHub//GSG-Variations//results//BR.csv', 'w') as csvfile:
 with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//BR.csv', 'w') as csvfile:
-    title = ['bounded + radio']
+    title = ["bounded + radio, Move Skip = " + str(g_var_BR.move_skip_toggle-1)]
     writer_title = csv.DictWriter(csvfile, fieldnames=title)#, extrasaction='ignore')
     writer_title.writeheader()
     fieldnames = ['Formation','Caught poachers', 'Fled poachers', 'Resource poached', 'Resource recovered', 'Distance travelled']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)#, extrasaction='ignore')
     writer.writeheader()
 
-    for i in range(1,9):
+    for i in range(1,10):
         #
         avg_list = [0.0 for ind in range(num_of_values)]
         std_list = [0.0 for ind in range(num_of_values)]
         value_list = [[0.0 for ind in range(num_of_trials)] for ind2 in range(num_of_values)]
 
-
         for j in range(num_of_trials):
             gc.collect()
             adv_in = 10
-            guard_in = i
-            drone_in = (8-i)*g_var_BR.exchange_rate
+            guard_in = 4
+            drone_in = 9#i*g_var_BR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BR.arrested_poachers

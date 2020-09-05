@@ -7,7 +7,6 @@ class agent(entities):
     agent_counter = 0
     agent_color = "green"
 
-
     def __init__(self,_canvas,_root,_agent_pos,_cell_resources,_drone_signal):
         self.canvas = _canvas
         self.root = _root
@@ -17,13 +16,6 @@ class agent(entities):
         self.move_skip = 0
         self.drone_signal_flag = False
 
-        '''while True:
-            pair = self.round_marking[random.randint(0,len(self.round_marking)-1)]
-            self.cur_x_agent = pair[1]
-            self.cur_y_agent = pair[0]
-            if self.agent_pos[self.cur_y_agent][self.cur_x_agent]==0:
-                break
-        '''
         self.cur_y_agent= random.randint(1, g_var_UR.dimension - 2)
         self.cur_x_agent= random.randint(1, g_var_UR.dimension - 2)
         self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 1
@@ -69,6 +61,8 @@ class agent(entities):
 
         move_x =  random.randint(lower_limit_x,upper_limit_x)
         move_y =  random.randint(lower_limit_y,upper_limit_y)
+        print("move added ",)
+        print(move_x, move_y)
         self.cur_x_agent = self.cur_x_agent + move_x
         self.cur_y_agent = self.cur_y_agent + move_y
         x_cor = self.cur_x_agent * g_var_UR.block_size
@@ -160,6 +154,8 @@ class agent(entities):
                 upper_limit_y=0
             normal_move_x = random.randint(lower_limit_x,upper_limit_x)
             normal_move_y = random.randint(lower_limit_y,upper_limit_y)
+            print("move added ",)
+            print(normal_move_x, normal_move_y)
             self.cur_x_agent = (self.cur_x_agent + normal_move_x)
             self.cur_y_agent = (self.cur_y_agent + normal_move_y)
 

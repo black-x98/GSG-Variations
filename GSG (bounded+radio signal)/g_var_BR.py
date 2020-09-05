@@ -6,7 +6,7 @@ exchange_rate = 3
 bg_color = "#00000F"
 block_size = 40
 movement_limit = 50
-turn_gap_time = 0
+turn_gap_time = 2400
 move_skip_toggle = 1
 
 arrested_poachers = 0

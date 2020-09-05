@@ -143,10 +143,11 @@ class app(Frame):
             for j in range(g_var_BS.dimension + 1):
                 self.canvas.create_rectangle(i * g_var_BS.block_size, j * g_var_BS.block_size, g_var_BS.block_size, g_var_BS.block_size, outline="grey")
 
-        frac = 1.00 * g_var_BS.num_of_drones / g_var_BS.num_of_agents
-        self.per_subarea_min = int(math.floor(frac))
-        self.extra_drone_num = int((frac - math.floor(frac)) * g_var_BS.num_of_agents)
+        self.min_drone_subarea = int(math.floor(1.00 * g_var_BS.num_of_drones / g_var_BS.num_of_agents))
+        #self.extra_drone_num = int((frac - math.floor(frac)) * g_var_BS.num_of_agents)
+        self.extra_drone_num = g_var_BS.num_of_drones - g_var_BS.num_of_agents * self.min_drone_subarea
         self.num_of_drones_emp = 0
+        self.extra_drone_emp = 0
 
         for i in range(g_var_BS.num_of_agents):
             sub_y = random.randint(0,2)
@@ -160,27 +161,22 @@ class app(Frame):
             agent_obj.move_agent()
             self.object_list.append(agent_obj)
 
-            for ind_drone_jjj in range(self.per_subarea_min):
+            for ind_drone_jjj in range(self.min_drone_subarea):
                 self.subarea_check_drone[sub_y][sub_x] += 1
                 drone_obj = drone(self.canvas, self.root, self.drone_pos, self.drone_signal, self.adv_pos, self.subarea_y[sub_y], self.subarea_x[sub_x])
                 self.num_of_drones_emp += 1
                 drone_obj.move_drone()
                 self.object_list.append(drone_obj)
 
+            if(self.extra_drone_emp<self.extra_drone_num):
+                drone_obj = drone(self.canvas, self.root, self.drone_pos, self.drone_signal, self.adv_pos, self.subarea_y[sub_y], self.subarea_x[sub_x])
+                self.num_of_drones_emp += 1
+                self.extra_drone_emp += 1
+                self.subarea_check_drone[sub_y][sub_x] += 1
+                drone_obj.move_drone()
+                self.object_list.append(drone_obj)
 
-        for i in range(self.extra_drone_num):
-            sub_y = random.randint(0,2)
-            sub_x = random.randint(0,2)
-            while self.subarea_check_drone[sub_y][sub_x] >= g_var_BS.exchange_rate:
-                sub_y = random.randint(0,2)
-                sub_x = random.randint(0,2)
-            #sub_y = 1
-            #sub_x = 1
-            self.subarea_check_drone[sub_y][sub_x] += 1
-            drone_obj = drone(self.canvas, self.root, self.drone_pos, self.drone_signal, self.adv_pos, self.subarea_y[sub_y], self.subarea_x[sub_x])
-            self.num_of_drones_emp += 1
-            drone_obj.move_drone()
-            self.object_list.append(drone_obj)
+
         #print(" Number of employed drones: " + self.num_of_drones_emp.__str__())
         for i in range(g_var_BS.num_of_adverseries):
             adv_obj = adv(self.canvas,self.root,self.agent_pos,self.drone_pos,self.cell_resources,self.target_pos,self.adv_pos)
@@ -216,7 +212,7 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
             gc.collect()
             adv_in = 10
             guard_in = i
-            drone_in = 8#(8-i)*g_var_BS.exchange_rate
+            drone_in = 4#(8-i)*g_var_BS.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BS.arrested_poachers

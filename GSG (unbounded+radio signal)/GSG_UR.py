@@ -150,22 +150,22 @@ class app(Frame):
 
         self.root.mainloop()
 
-print("\n***Simulating Green Security Game (Unbounded guarding + Radio signalling)***\n")
+print("\n***Simulating Green Security Game (Unbounded guarding + Radio signalling)***, Move Skip = " + str(g_var_UR.move_skip_toggle-1) + "\n")
 
-num_of_trials = 10
+num_of_trials = 1
 num_of_values = 5
 
-print("***Number of Trials = " + num_of_trials.__str__() + "***")
+print("***Number of Trials: " + num_of_trials.__str__() + "***")
 
 with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//UR.csv', 'w') as csvfile:
-    title = ['unbounded + radio']
+    title = ["unbounded + radio, Move Skip = " + str(g_var_UR.move_skip_toggle-1)]
     writer_title = csv.DictWriter(csvfile, fieldnames=title)#, extrasaction='ignore')
     writer_title.writeheader()
     fieldnames = ['Formation','Caught poachers', 'Fled poachers', 'Resource poached', 'Resource recovered', 'Distance travelled']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)#, extrasaction='ignore')
     writer.writeheader()
 
-    for i in range(1,9):
+    for i in range(1,10):
         #
         avg_list = [0.0 for ind in range(num_of_values)]
         std_list = [0.0 for ind in range(num_of_values)]
@@ -176,7 +176,7 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//U
             gc.collect()
             adv_in = 10
             guard_in = i
-            drone_in = 8 #i*g_var_UR.exchange_rate
+            drone_in = i*g_var_UR.exchange_rate #i*g_var_UR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
             #app(10,i,(8-i)*g_var_UR.exchange_rate) # parameters: num of adversaries, agents, drones
 

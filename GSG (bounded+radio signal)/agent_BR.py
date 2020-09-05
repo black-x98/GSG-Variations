@@ -104,10 +104,10 @@ class agent(entities):
             elif self.cur_y_agent>=g_var_BR.dimension*self.subarea_y[self.sub_y][1]-1:
                 upper_limit_y = 0
 
-            move_x =  random.randint(round(lower_limit_x),round(upper_limit_x))
-            move_y =  random.randint(round(lower_limit_y),round(upper_limit_y))
-            '''print "move added ",
-            print move_x, move_y'''
+            move_x =  random.randint(lower_limit_x,upper_limit_x)
+            move_y =  random.randint(lower_limit_y,upper_limit_y)
+            '''print("move added ")
+            print(move_x, move_y)'''
             self.cur_x_agent = self.cur_x_agent + move_x
             self.cur_y_agent = self.cur_y_agent + move_y
             x_cor = self.cur_x_agent * g_var_BR.block_size
