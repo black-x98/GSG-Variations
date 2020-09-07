@@ -179,8 +179,6 @@ class app(Frame):
                 self.extra_drone_emp += 1
                 self.subarea_check_drone[sub_y][sub_x] += 1
 
-
-
             #print(self.drone_employed
         #print("^ And that, my friend is the number of drones that were employed "
         for i in range(g_var_BR.num_of_adverseries):
@@ -188,12 +186,13 @@ class app(Frame):
             adv_obj.operate_adv()
             self.object_list.append(adv_obj)
 
+        print(g_var_BR.drone_placement_array)
         self.root.mainloop()
 
 
 print("\n***Simulating Green Security Game (Bounded guarding + Radio signalling)***, Move Skip = " + str(g_var_BR.move_skip_toggle-1) + "\n")
 
-num_of_trials = 10
+num_of_trials = 1
 num_of_values = 5
 
 print("***Number of Trials: " + num_of_trials.__str__() + "***")
@@ -207,17 +206,18 @@ with open('F://MS Thesis Implementation Final GitHub//GSG-Variations//results//B
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)#, extrasaction='ignore')
     writer.writeheader()
 
-    for i in range(1,10):
+    for i in range(0,9):
         #
         avg_list = [0.0 for ind in range(num_of_values)]
         std_list = [0.0 for ind in range(num_of_values)]
         value_list = [[0.0 for ind in range(num_of_trials)] for ind2 in range(num_of_values)]
 
         for j in range(num_of_trials):
+            g_var_BR.drone_placement_array = [[0,0,0],[0,0,0],[0,0,0]]
             gc.collect()
             adv_in = 10
-            guard_in = 4
-            drone_in = 21#i*g_var_BR.exchange_rate
+            guard_in = 8
+            drone_in = i*g_var_BR.exchange_rate
             app(adv_in,guard_in,drone_in) # parameters: num of adversaries, agents, drones
 
             value_list[0][j] += g_var_BR.arrested_poachers

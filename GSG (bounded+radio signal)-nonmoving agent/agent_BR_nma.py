@@ -77,7 +77,7 @@ class agent(entities):
             self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
             self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 3
 
-            '''if self.adv_pos[self.cur_y_agent][self.cur_x_agent] == 1: # jawar pore 
+            '''if self.adv_pos[self.cur_y_agent][self.cur_x_agent] == 1: # jawar pore
                 print "Shabbash drone er baccha!!! Signal shune dhoira falaisi poacher re at: ",
                 print self.cur_y_agent, self.cur_x_agent'''
 

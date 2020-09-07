@@ -20,6 +20,8 @@ class drone(entities):
         self.subarea_signal = _subarea_signal
         self.drone_counter = 0
 
+        g_var_BR.drone_placement_array[_sub_y][_sub_x] += 1
+
         self.cur_y_drone = random.randint(round(g_var_BR.dimension * self.subarea_y[self.sub_y][0]), round(g_var_BR.dimension * self.subarea_y[self.sub_y][1]) - 1)
         self.cur_x_drone = random.randint(round(g_var_BR.dimension * self.subarea_x[self.sub_x][0]), round(g_var_BR.dimension * self.subarea_x[self.sub_x][1]) - 1)
 
